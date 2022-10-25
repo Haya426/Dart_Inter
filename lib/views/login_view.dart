@@ -29,7 +29,9 @@ class _LoginViewState extends State<LoginView> {
   }
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Scaffold(
+      appBar: AppBar(title: const Text('Login View'),),
+      body: Column(
             children: [
               TextField(
                 controller: _email,
@@ -75,7 +77,8 @@ class _LoginViewState extends State<LoginView> {
                   (route) => false)
               }, child: const Text('Not registered yet? Register here!'))
             ],
-          );
+          ),
+    );
   }
   }
   
