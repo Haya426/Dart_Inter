@@ -1,0 +1,11 @@
+  # Basic register-user screen
+  
+ 1. Column 
+ 2. Text
+ 3. FutureBuilder
+ 4. TextField
+ 5. Containers
+ 6. AppBar
+
+ @ We have a basic firebase set up now
+   We now need to do refactoring and works on login/register view
