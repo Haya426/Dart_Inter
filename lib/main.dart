@@ -6,9 +6,11 @@ import 'package:learningdart/firebase_options.dart';
 import 'package:learningdart/views/login_view.dart';
 import 'package:learningdart/views/register_view.dart';
 import 'package:learningdart/views/verify_email_view.dart';
+import 'dart:developer' as devtools show log;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     MaterialApp(
       title: 'Flutter Demo',
@@ -73,9 +75,15 @@ class _NotesViewState extends State<NotesView> {
       appBar: AppBar(
         title: const Text('Main UI'),
         actions: [
-          PopupMenuButton<MenuAction>(onSelected:(value) {
-            print(value);
-           } ,
+          PopupMenuButton<MenuAction>(onSelected:(value) async{
+            switch(value){
+           
+              case MenuAction.logout:
+              final shouldLogout = await showLogoutDialog(context);
+              devtools.log(shouldLogout.toString());
+                break;
+            }
+            } ,
           itemBuilder: (context){
             return const [
              PopupMenuItem<MenuAction>(
@@ -89,6 +97,26 @@ class _NotesViewState extends State<NotesView> {
       body: const Text('Hello world'),
     );
   }
+}
+Future<bool> showLogoutDialog(BuildContext context){
+  return showDialog<bool>(
+    context: context,
+     builder: (context) {
+    return AlertDialog(
+      title: const Text('Sign Out'),
+      content: const Text('Are you sure you want to sign out'),
+      actions: [
+        TextButton(onPressed: () {
+          Navigator.of(context).pop(false);
+          
+        }, child: const Text('Cancel')),
+          TextButton(onPressed: () {
+          Navigator.of(context).pop(true);
+          
+        }, child: const Text('Log out'))
+      ],
+    );
+  },).then((value) => value?? false);
 }
 
 
